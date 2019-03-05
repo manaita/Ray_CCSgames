@@ -38,6 +38,7 @@ void Laser::Update() {
 
 
 
+
 	m_Pos.x += (V / n) * cos(the);
 	m_Pos.y -= (V / n) * sin(the);
 
