@@ -5,19 +5,24 @@ const double Y0 = 640;
 
 Vec2 init_mouse;
 
-Laser::Laser() : Task()                      //60ƒtƒŒ[ƒ€‚ÅÁ‹
+Laser::Laser() : Task()                      //60ãƒ•ãƒ¬ãƒ¼ãƒ ã§æ¶ˆå»
 , m_Pos(X0, Y0)
-, m_Update(this, &Laser::Update) //‘æ2ˆø”‚Éw’è‚µ‚½ŠÖ”‚ª©“®‚ÅŒÄ‚Ño‚³‚ê‚é
+, m_Update(this, &Laser::Update1) //ç¬¬2å¼•æ•°ã«æŒ‡å®šã—ãŸé–¢æ•°ãŒè‡ªå‹•ã§å‘¼ã³å‡ºã•ã‚Œã‚‹
+, m_Draw(this, &Laser::Draw)
 , theta(Theta(init_mouse))
+, roop(0)
+, con_x(1)
+, con_y(1)
 {
-	//‘—M‘¤“o˜^
+	//é€ä¿¡å´ç™»éŒ²
 	m_Send.Register(this);
+	
 }
 
-void Laser::Update() {
+void Laser::Update1() {
 
-	double n;//‹üÜ—¦
-	double the;//Šp“x
+	double n=1;//å±ˆæŠ˜ç‡
+	double the=0;//è§’åº¦
 
 	if (m_Pos.y > 480) {
 		n = n1;
@@ -25,38 +30,103 @@ void Laser::Update() {
 	}
 	else if (m_Pos.y <= 480 && 390 < m_Pos.y) {
 		n = n2;
-		the = 90_deg - asin((n1 / n2)*cos(theta));
+		the = asin((n1 / n2)*sin(theta));
 	}
-	else if (m_Pos.y <= 390 && 320 < m_Pos.y) {
+	else if (m_Pos.y <= 390 && 320 <= m_Pos.y) {
 		n = n3;
-		the = 90_deg - asin((n2 / n3)*sin(asin((n1 / n2)*cos(theta))));
+		the = asin((n1 / n3)*sin(theta));
 	}
 	else {
 		n = 1;
-		the= 90_deg - asin((n3)*sin(asin((n2 / n3)*sin(asin((n1 / n2)*cos(theta))))));
+		theta = asin(n1*sin(theta));
+		m_Pos.x -= (V / n) * sin(the);
+		m_Pos.y += (V / n) * cos(the);
+		m_Update.SetCall(&Laser::Update2);
 	}
 
 
+	m_Pos.x += (V /n) * sin(the);
+	m_Pos.y -= (V/n) * cos(the);
+
+	
+	if (m_Pos.x < -20 || m_Pos.x>1050 || m_Pos.y < -20 || m_Pos.y>660) {
+		this->Destroy();
+	}
+
+}
+
+void Laser::Update2() {
+
+	
+	m_Pos.x += con_x * V * sin(theta);
+	m_Pos.y -= con_y * V * cos(theta);
+
+	if (m_Pos.x < -20 || m_Pos.x>1050 || m_Pos.y < -20 || m_Pos.y>660) {
+		this->Destroy();
+	}
+
+	if (m_Pos.y > 320) {
+		
+		theta = atan((con_x * V * sin(theta)) / (-con_y * V * cos(theta)));
+		m_Update.SetCall(&Laser::Update3);
+	}
+}
+
+void Laser::Convert_x() {
+	con_x *= -1;
+}
+
+void Laser::Convert_y() {
+	con_y *= -1;
+}
+
+void Laser::Update3() {
+
+	double n=1;//å±ˆæŠ˜ç‡
+	double the=0;//è§’åº¦
+
+	if (m_Pos.y > 480) {
+		n = n1;
+		the = asin((1 / n1)*sin(theta));
+	}
+	else if (m_Pos.y <= 480 && 390 < m_Pos.y) {
+		n = n2;
+		the = asin((1 / n2)*sin(theta));
+	}
+	else if (m_Pos.y <= 390 && 320 <= m_Pos.y) {
+		n = n3;
+		the = asin((1 / n3)*sin(theta));
+	}
+	else {
+		n = 1;
+		//the = theta;
+	}
+
+	
+	m_Pos.x += (V /n ) * sin(the);
+	m_Pos.y += (V /n) * cos(the);
 
 
-	m_Pos.x += (V / n) * cos(the);
-	m_Pos.y -= (V / n) * sin(the);
+	if (m_Pos.x < -20 || m_Pos.x>1050 || m_Pos.y < -20 || m_Pos.y>530) {
+		this->Destroy();
+	}
+}
 
-	//•`‰æ
+void Laser::Draw() {
+	//æç”»
 	Circle(m_Pos, 4.0).draw(Color(0, 150, 255));
 	//Circle(m_Pos, 3.0).draw(Color(0, 150, 255, 200));
-
 }
 
 void Laser::SetDestroy()
 {
-	//Á‹
+	//æ¶ˆå»
 	this->Destroy();
 }
 
 Circle Laser::getCircle() const
 {
-	//•`‰æ‚·‚é‰~‚ğ•Ô‚·
+	//æç”»ã™ã‚‹å††ã‚’è¿”ã™
 	return Circle(m_Pos, 4.0);
 }
 
@@ -66,14 +136,12 @@ double Theta(Vec2 mouse) {
 
 	double theta;
 
-	theta = 360_deg-atan2(mouse.y - Y0, mouse.x - X0);
+	theta = atan((mouse.x - X0) / (-mouse.y + Y0));
 
 	return theta;
 }
 
 bool Laser_create() {
-
-	
 
 	if (Input::MouseL.clicked) {
 		init_mouse.x = Mouse::Pos().x;

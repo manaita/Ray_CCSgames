@@ -23,6 +23,7 @@ void Game::init()
 	{
 	battery = new Battery;
 	time = 0;
+	Create<Mirror>();
 	}
 
 void Game::update()
@@ -40,10 +41,7 @@ void Game::update()
 
 void Game::draw() const
 {
-	Window::ClientRect().draw(Color(20, 20, 50));
-	Rect(0, 320, 1024, 320).draw(Color(30, 30, 200, 80));
-	Rect(0, 390, 1024, 250).draw(Color(50, 50, 200, 80));
-	Rect(0, 480, 1024, 160).draw(Color(70, 70, 250, 80));
+	back->Draw();
 
 	if (Laser_create()) {
 		Create<Laser>();
@@ -53,7 +51,7 @@ void Game::draw() const
 		Create<Enemy>();
 	}
 	
-	Rect(0, 630, 1024, 10).draw(Color(170, 170, 170, 180));
+	
 	battery->Draw();
 
 	//TaskSend ‚Æ TaskReceive ‚Åİ’è‚µ‚½ŠÖ”‚ğŒÄ‚Ño‚·
