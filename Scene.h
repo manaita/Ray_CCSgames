@@ -2,6 +2,7 @@
 #include "Battery.h"
 #include"Laser.h"
 #include"Enemy.h"
+#include"Background.h"
 
 class Title : public SceneManager<String>::Scene
 {
@@ -17,6 +18,7 @@ class Game : public SceneManager<String>::Scene
 private:
 	Battery* battery;
 	int time;
+	Back *back;
 public:
 	void init() override;
 	void update() override;
