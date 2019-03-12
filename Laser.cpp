@@ -5,24 +5,24 @@ const double Y0 = 640;
 
 Vec2 init_mouse;
 
-Laser::Laser() : Task()                      //60ƒtƒŒ[ƒ€‚ÅÁ‹
+Laser::Laser() : Task()                      //60ãƒ•ãƒ¬ãƒ¼ãƒ ã§æ¶ˆå»
 , m_Pos(X0, Y0)
-, m_Update(this, &Laser::Update1) //‘æ2ˆø”‚Éw’è‚µ‚½ŠÖ”‚ª©“®‚ÅŒÄ‚Ño‚³‚ê‚é
+, m_Update(this, &Laser::Update1) //ç¬¬2å¼•æ•°ã«æŒ‡å®šã—ãŸé–¢æ•°ãŒè‡ªå‹•ã§å‘¼ã³å‡ºã•ã‚Œã‚‹
 , m_Draw(this, &Laser::Draw)
 , theta(Theta(init_mouse))
 , roop(0)
 , con_x(1)
 , con_y(1)
 {
-	//‘—M‘¤“o˜^
+	//é€ä¿¡å´ç™»éŒ²
 	m_Send.Register(this);
 	
 }
 
 void Laser::Update1() {
 
-	double n=1;//‹üÜ—¦
-	double the=0;//Šp“x
+	double n=1;//å±ˆæŠ˜ç‡
+	double the=0;//è§’åº¦
 
 	if (m_Pos.y > 480) {
 		n = n1;
@@ -82,8 +82,8 @@ void Laser::Convert_y() {
 
 void Laser::Update3() {
 
-	double n=1;//‹üÜ—¦
-	double the=0;//Šp“x
+	double n=1;//å±ˆæŠ˜ç‡
+	double the=0;//è§’åº¦
 
 	if (m_Pos.y > 480) {
 		n = n1;
@@ -113,20 +113,20 @@ void Laser::Update3() {
 }
 
 void Laser::Draw() {
-	//•`‰æ
+	//æç”»
 	Circle(m_Pos, 4.0).draw(Color(0, 150, 255));
 	//Circle(m_Pos, 3.0).draw(Color(0, 150, 255, 200));
 }
 
 void Laser::SetDestroy()
 {
-	//Á‹
+	//æ¶ˆå»
 	this->Destroy();
 }
 
 Circle Laser::getCircle() const
 {
-	//•`‰æ‚·‚é‰~‚ğ•Ô‚·
+	//æç”»ã™ã‚‹å††ã‚’è¿”ã™
 	return Circle(m_Pos, 4.0);
 }
 
