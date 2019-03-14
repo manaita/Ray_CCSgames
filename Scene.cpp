@@ -48,8 +48,9 @@ void Game::draw() const
 	}
 	
 	if (time == 99) {
-		Create<Enemy>();
+		//Create<Enemy>();
 	}
+	
 	
 	
 	battery->Draw();

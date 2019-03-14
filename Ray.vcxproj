@@ -285,7 +285,6 @@
     <ClInclude Include="Background.h" />
     <ClInclude Include="Battery.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="Manager.h" />
     <ClInclude Include="Laser.h" />
     <ClInclude Include="Scene.h" />
   </ItemGroup>
