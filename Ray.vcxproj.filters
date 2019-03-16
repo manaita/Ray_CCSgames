@@ -413,9 +413,6 @@
     <ClInclude Include="Scene.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Manager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Battery.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>

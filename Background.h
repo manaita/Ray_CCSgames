@@ -21,3 +21,5 @@ public:
 	Back();
 	void Draw();
 };
+
+void Mirror_Draw();

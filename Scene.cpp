@@ -34,7 +34,7 @@ void Game::update()
 	}*/
 
 	time++;
-	if (time == 100) {
+	if (time == 200) {
 		time = 0;
 	}
 }
@@ -46,10 +46,14 @@ void Game::draw() const
 	if (Laser_create()) {
 		Create<Laser>();
 	}
+
+	Mirror_Draw();
 	
-	if (time == 99) {
-		Create<Enemy>();
+	if (time == 199) {
+		//Create<Enemy>();
+		Create<Stop>();
 	}
+	
 	
 	
 	battery->Draw();

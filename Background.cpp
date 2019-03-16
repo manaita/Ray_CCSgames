@@ -6,32 +6,26 @@ Mirror::Mirror() : Task()
 	//éÛêMë§ê›íË
 	m_Receive.Register<Laser>(this, &Mirror::HitCheck);
 
-	mirror1 = Rect(20, 90, 300, 20);
-	mirror2 = Rect(704, 90, 300, 20);
-	mirror3 = Rect(20, 90, 20, 200);
-	mirror4 = Rect(984, 90, 20, 200);
+	mirror1 = Rect(0, 90, 1024, 20);
+	mirror2 = Rect(0, 90, 20, 230);
+	mirror3 = Rect(1004, 90, 20, 230);
 }
 
 void Mirror::Update() {
-	//mirror_draw
-	mirror1.draw(Color(170, 170, 170));
-	mirror2.draw(Color(170, 170, 170));
-	mirror3.draw(Color(170, 170, 170));
-	mirror4.draw(Color(170, 170, 170));
+	
 }
 
 
 void Mirror::HitCheck(Laser &particle) {
-	if (mirror1.intersects(particle.getCircle()) || mirror2.intersects(particle.getCircle())) {
+	if (mirror1.intersects(particle.getCircle())) {
 		particle.Convert_y();
 	}
-	else if(mirror3.intersects(particle.getCircle()) || mirror4.intersects(particle.getCircle())) {
+	else if(mirror2.intersects(particle.getCircle()) || mirror3.intersects(particle.getCircle())) {
 		particle.Convert_x();
 	}
 }
 
 //------------------------------------------
-
 
 Back::Back() {
 
@@ -45,4 +39,13 @@ void Back::Draw() {
 	Rect(0, 630, 1024, 10).draw(Color(170, 170, 170, 180));
 
 	Line(0, 530, 1024, 530).draw(5, Color(200, 200, 0));
+
+	//TextureAsset(L"Back").draw();
+}
+
+void Mirror_Draw() {
+	//mirror_draw
+	Rect(0, 90, 1024, 20).draw(Color(170, 170, 170));
+	Rect(0, 90, 20, 230).draw(Color(170, 170, 170));
+	Rect(1004, 90, 20, 230).draw(Color(170, 170, 170));
 }
