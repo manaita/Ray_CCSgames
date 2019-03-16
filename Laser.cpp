@@ -7,9 +7,9 @@ Vec2 init_mouse;
 
 
 
-Laser::Laser() : Task(3600)                      //60ƒtƒŒ[ƒ€‚ÅÁ‹
+Laser::Laser() : Task(3600)                      //60ãƒ•ãƒ¬ãƒ¼ãƒ ã§æ¶ˆå»
 , m_Pos(X0, Y0)
-, m_Update(this, &Laser::Update1) //‘æ2ˆø”‚Éw’è‚µ‚½ŠÖ”‚ª©“®‚ÅŒÄ‚Ño‚³‚ê‚é
+, m_Update(this, &Laser::Update1) //ç¬¬2å¼•æ•°ã«æŒ‡å®šã—ãŸé–¢æ•°ãŒè‡ªå‹•ã§å‘¼ã³å‡ºã•ã‚Œã‚‹
 , m_Draw(this, &Laser::Draw)
 , theta(Theta(init_mouse))
 , roop(0)
@@ -22,7 +22,7 @@ Laser::Laser() : Task(3600)                      //60ƒtƒŒ[ƒ€‚ÅÁ‹
 , theta_draw(0)
 , v_draw(0)
 {
-	//‘—M‘¤“o˜^
+	//é€ä¿¡å´ç™»éŒ²
 	m_Send.Register(this);
 	
 }
@@ -164,7 +164,7 @@ void Laser::Update3() {
 }
 
 void Laser::Draw() {
-	//•`‰æ
+	//æç”»
 	//Circle(m_Pos, 8.0).draw(Color(0, 150, 255, 100));
 
 	//Line(m_Pos.x - 1.0 * cos(theta_draw), m_Pos.y + 1.0 * sin(theta_draw), m_Pos.x + 1.0 * cos(theta_draw), m_Pos.y - 1.0 * sin(theta_draw)).draw(8, Color(0, 155, 255, 100));
@@ -185,13 +185,13 @@ void Laser::Draw() {
 
 void Laser::SetDestroy()
 {
-	//Á‹
+	//æ¶ˆå»
 	this->Destroy();
 }
 
 Circle Laser::getCircle() const
 {
-	//•`‰æ‚·‚é‰~‚ğ•Ô‚·
+	//æç”»ã™ã‚‹å††ã‚’è¿”ã™
 	return Circle(m_Pos, 5.0);
 }
 
