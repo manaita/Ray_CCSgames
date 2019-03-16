@@ -15,13 +15,14 @@ private:
 	void Update2();
 	void Update3();
 	void Draw();
-	const double V = 5; //Laser velocity‚Ì‘å‚«‚³ in vacuum
+	const double V = 6; //Laser velocity‚Ì‘å‚«‚³ in vacuum
 	double theta;
-	const double n1 = 1.5, n2 = 1.35, n3 = 1.2; //‹üÜ—¦
+	const double n1 = 1.4, n2 = 1.3, n3 = 1.2; //‹üÜ—¦
 	int roop; 
 	int con_x,con_y,con_y1; //convert—p•Ï”
 	double n,the;
 	bool t_ref_check; //Total refrection check
+	double theta_draw,v_draw;
 public:
 	Laser();
 	void SetDestroy();
