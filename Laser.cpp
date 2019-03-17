@@ -5,11 +5,9 @@ const double Y0 = 640;
 
 Vec2 init_mouse;
 
-
-
-Laser::Laser() : Task(3600)                      //60フレームで消去
+Laser::Laser() : Task(3600)                      //60�t���[���ŏ���
 , m_Pos(X0, Y0)
-, m_Update(this, &Laser::Update1) //第2引数に指定した関数が自動で呼び出される
+, m_Update(this, &Laser::Update1) 
 , m_Draw(this, &Laser::Draw)
 , theta(Theta(init_mouse))
 , roop(0)
@@ -22,7 +20,7 @@ Laser::Laser() : Task(3600)                      //60フレームで消去
 , theta_draw(0)
 , v_draw(0)
 {
-	//送信側登録
+	//���M���ݒ�
 	m_Send.Register(this);
 	
 }
@@ -30,7 +28,7 @@ Laser::Laser() : Task(3600)                      //60フレームで消去
 void Laser::Update1() {
 
 	if (roop == 0) {
-		
+	
 		n = n1;
 		the = theta;
 		roop = 1;
@@ -131,6 +129,7 @@ void Laser::Convert_y() {
 
 void Laser::Update3() {
 
+
 	if (m_Pos.y > 480) {
 		n = n1;
 		the = asin((1 / n1)*sin(theta));
@@ -164,7 +163,8 @@ void Laser::Update3() {
 }
 
 void Laser::Draw() {
-	//描画
+
+	//�`��
 	//Circle(m_Pos, 8.0).draw(Color(0, 150, 255, 100));
 
 	//Line(m_Pos.x - 1.0 * cos(theta_draw), m_Pos.y + 1.0 * sin(theta_draw), m_Pos.x + 1.0 * cos(theta_draw), m_Pos.y - 1.0 * sin(theta_draw)).draw(8, Color(0, 155, 255, 100));
@@ -180,19 +180,20 @@ void Laser::Draw() {
 		Line(m_Pos.x - v_draw * cos(theta_draw), m_Pos.y + v_draw * sin(theta_draw), m_Pos.x + v_draw * cos(theta_draw), m_Pos.y - v_draw * sin(theta_draw)).draw(5, Color(255, 255, 255));
 	
 	}
-	
+
 }
 
 void Laser::SetDestroy()
 {
-	//消去
 	this->Destroy();
 }
 
 Circle Laser::getCircle() const
 {
-	//描画する円を返す
+
+	//�`�悷��~��Ԃ�
 	return Circle(m_Pos, 5.0);
+
 }
 
 

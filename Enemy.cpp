@@ -1,7 +1,7 @@
 #include"Enemy.h"
 
 
-Enemy::Enemy() : Task(500)                      //500フレームで消去
+Enemy::Enemy() : Task(900)                      //500フレームで消去
 , m_Pos(50+Random(0,974),-15.0)
 , m_Update(this, &Enemy::Update) //第2引数に指定した関数が自動で呼び出される
 , m_Draw(this, &Enemy::Draw)
@@ -12,7 +12,22 @@ Enemy::Enemy() : Task(500)                      //500フレームで消去
 
 void Enemy::Update() {
 
-	m_Pos.y+=1.5;
+	if (m_Pos.y <= 320) {
+		m_Pos.y += 1.5;
+	}
+	else if (m_Pos.y <= 390) {
+		m_Pos.y += 1.3;
+	}
+	else if (m_Pos.y <= 480) {
+		m_Pos.y += 1.0;
+	}
+	else {
+		m_Pos.y += 0.8;
+	}
+
+	if (m_Pos.y >= 530) {
+		this->Destroy();
+	}
 
 }
 
@@ -35,6 +50,8 @@ void Enemy::HitCheck(Laser & particle)
 		count = 0;
 		this->Destroy();
 	}
+
+	
 }
 
 //---------------------------------------------------------------------
@@ -65,6 +82,10 @@ void Stop::Update() {
 	}
 
 	time++;
+
+	if (m_Pos.y >= 530) {
+		this->Destroy();
+	}
 }
 
 void Stop::Draw() {
@@ -89,3 +110,118 @@ void Stop::HitCheck(Laser & particle)
 
 //-------------------------------------------------------------------
 
+
+Double::Double() : Task(900)                      //500フレームで消去
+, m_Pos(100 + Random(0, 824), -15.0)
+, m_Update(this, &Double::Update) //第2引数に指定した関数が自動で呼び出される
+, m_Draw(this, &Double::Draw)
+{
+	//受信側設定
+	m_Receive.Register<Laser>(this, &Double::HitCheck);
+}
+
+void Double::Update() {
+
+	if (m_Pos.y <= 320) {
+		m_Pos.y += 1.5;
+	}
+	else if (m_Pos.y <= 390) {
+		m_Pos.y += 1.3;
+	}
+	else if (m_Pos.y <= 480) {
+		m_Pos.y += 1.0;
+	}
+	else {
+		m_Pos.y += 0.8;
+	}
+
+	if (m_Pos.y >= 530) {
+		this->Destroy();
+	}
+}
+
+void Double::Draw() {
+
+	if (count <= 20) {
+		Circle(m_Pos, 20.0).drawFrame(0, 5, Color(255, 100, 100));
+	}
+	Circle(m_Pos, 10.0).draw(Color(255, 100, 100));
+
+}
+
+void Double::HitCheck(Laser & particle)
+{
+
+	//プレイヤーと衝突していたら消去
+	if (count <= 15) {
+		if (Circle(m_Pos, 20.0).intersects(particle.getCircle())) {
+			particle.SetDestroy();
+			count++;
+		}
+	}
+	else {
+		if (Circle(m_Pos, 10.0).intersects(particle.getCircle())) {
+			particle.SetDestroy();
+			count++;
+		}
+	}
+	if (count == 40) {
+		//count = 0;
+		this->Destroy();
+	}
+}
+
+//----------------------------------------------------------
+
+Heavy::Heavy() : Task(900)                      //500フレームで消去
+, m_Pos(200+Random(0,624), -15.0)
+, m_Update(this, &Heavy::Update) //第2引数に指定した関数が自動で呼び出される
+, m_Draw(this, &Heavy::Draw)
+, m_Initx(m_Pos.x)
+{
+	//受信側設定
+	m_Receive.Register<Laser>(this, &Heavy::HitCheck);
+}
+
+void Heavy::Update() {
+
+	if (m_Pos.y <= 320) {
+		m_Pos.y += 1.3;
+	}
+	else if (m_Pos.y <= 390) {
+		m_Pos.y += 1.1;
+	}
+	else if (m_Pos.y <= 480) {
+		m_Pos.y += 0.8;
+	}
+	else {
+		m_Pos.y += 0.6;
+	}
+
+	m_Pos.x = 100 * sin(m_Pos.y / 50.0) + m_Initx;
+
+	if (m_Pos.y >= 530) {
+		this->Destroy();
+	}
+}
+
+void Heavy::Draw() {
+
+	Circle(m_Pos, 20.0).draw(Color(100, 255, 100));
+
+}
+
+void Heavy::HitCheck(Laser & particle)
+{
+
+	//プレイヤーと衝突していたら消去
+	
+	if (Circle(m_Pos, 20.0).intersects(particle.getCircle())) {
+		particle.SetDestroy();
+		count++;
+	}
+	if (count == 60) {
+		//count = 0;
+		this->Destroy();
+	}
+}
