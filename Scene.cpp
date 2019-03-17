@@ -50,10 +50,20 @@ void Game::draw() const
 	Mirror_Draw();
 	
 	if (time == 199) {
-		//Create<Enemy>();
+		Create<Enemy>();
+	}
+
+	if (time == 150) {
 		Create<Stop>();
 	}
 	
+	if (time == 100) {
+		Create<Double>();
+	}
+
+	if (time == 50) {
+		Create<Heavy>();
+	}
 	
 	
 	battery->Draw();
