@@ -4,7 +4,9 @@ const double X0 = 512;
 const double Y0 = 640;
 
 
-Battery::Battery() {
+Battery::Battery():
+	m_theta(0)
+{
 
 }
 
@@ -16,12 +18,12 @@ void Battery::Draw() {
 
 double Battery::Theta() {
 
-	double theta;
+	if (Input::MouseL.pressed == false) {
+		double mousex = Mouse::Pos().x;
+		double mousey = Mouse::Pos().y;
 
-	double mousex = Mouse::Pos().x;
-	double mousey = Mouse::Pos().y;
+		m_theta = atan2(mousey - Y0, mousex - X0);
+	}
 
-	theta = atan2(mousey - Y0, mousex - X0);
-
-	return theta;
+	return m_theta;
 }

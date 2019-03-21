@@ -12,7 +12,7 @@ void Main()
 
 	//TextureAsset::Register(L"Back", L"Example/Earth.jpg");
 
-	//FontAsset::Register(L"memo", 20);
+	FontAsset::Register(L"memo", 20);
 
 	while (System::Update())
 	{

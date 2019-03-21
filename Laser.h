@@ -2,7 +2,7 @@
 # include <Siv3D.hpp>
 # include <rnfs.h>
 #include <math.h>
-
+//#include"Energy.h"
 
 class Laser : public Task {
 
