@@ -9,6 +9,7 @@ void HpDraw();
 void ScoreDraw();
 void GrobalInit();
 int GetScore();
+int GetHp();
 
 class Enemy : public Task {
 

@@ -32,7 +32,9 @@ Back::Back() {
 }
 
 void Back::Draw() {
-	Window::ClientRect().draw(Color(20, 20, 50));
+	TextureAsset(L"Back").draw();
+	
+	//Window::ClientRect().draw(Color(20, 20, 50));
 	Rect(0, 320, 1024, 320).draw(Color(30, 30, 200, 80));
 	Rect(0, 390, 1024, 250).draw(Color(50, 50, 200, 80));
 	Rect(0, 480, 1024, 160).draw(Color(70, 70, 250, 80));
@@ -40,7 +42,7 @@ void Back::Draw() {
 
 	Line(0, 530, 1024, 530).draw(5, Color(200, 200, 0));
 
-	//TextureAsset(L"Back").draw();
+	
 }
 
 void Mirror_Draw() {

@@ -6,10 +6,14 @@ int g_score = 0;
 
 void HpDraw() {
 	FontAsset(L"memo")(g_hp).draw();
+	//Rect(700, 5, 300, 25).draw({ Color(255,0,0),Color(0,255,0),Color(0,0,255) });
+	Rect(700, 10, 300, 25).draw(Color(0, 0, 255));
+	Rect(700 + g_hp * 3, 10, (100-g_hp) * 3, 25).draw();
 }
 
 void ScoreDraw() {
-	FontAsset(L"memo")(g_score).draw(100, 0);
+	FontAsset(L"memo")(g_score).draw(100, 0, Color(0, 0, 0));
+	
 }
 
 void GrobalInit() {
@@ -19,6 +23,10 @@ void GrobalInit() {
 
 int GetScore() {
 	return g_score;
+}
+
+int GetHp() {
+	return g_hp;
 }
 
 //--------------------------------------------------
@@ -59,8 +67,8 @@ void Enemy::Update() {
 
 void Enemy::Draw() {
 
-	Circle(m_Pos, 15.0).draw(Color(200, 150, 255));
-
+	//Circle(m_Pos, 15.0).draw(Color(200, 150, 255));
+	TextureAsset(L"enemy").scale(3 / 10.0, 3 / 10.0).draw(m_Pos);
 }
 
 void Enemy::HitCheck(Laser & particle)
