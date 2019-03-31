@@ -12,6 +12,8 @@ void Load() {
 	TextureAsset::Register(L"enemy", L"Data/enemy.jpg");
 
 	FontAsset::Register(L"memo", 20);
+
+	SoundAsset::Register(L"title", L"Data/title.wav");
 }
 
 void Main()
@@ -22,7 +24,7 @@ void Main()
 	manager.add<Game>(L"Game");
 	manager.add<Result>(L"Result");
 	manager.add<Ranking>(L"Ranking");
-
+	manager.add<Tips>(L"Tips");
 
 	Window::Resize(1024, 640);
 

@@ -15,26 +15,41 @@ void Title::init() {
 	roop = true;
 
 	counter = 0;
+
+	SoundAsset(L"title").setLoop(true);
+	SoundAsset(L"title").play();
 }
 
 void Title::update()
 {
-	/*if (Input::MouseL.clicked) {
-
-		changeScene(L"Game");
-	}*/
 
 	if (command[0].mouseOver) {
 		m_RayUpdate(70,470);
+		if (Input::MouseL.clicked) {
+			SoundAsset(L"title").stop();
+			changeScene(L"Game");
+		}
 	}
 	else if (command[1].mouseOver) {
 		m_RayUpdate(560, 470);
+		if (Input::MouseL.clicked) {
+			SoundAsset(L"title").stop();
+			changeScene(L"Tips");
+		}
 	}
 	else if (command[2].mouseOver) {
 		m_RayUpdate(130, 610);
+		if (Input::MouseL.clicked) {
+			SoundAsset(L"title").stop();
+			changeScene(L"Ranking");
+		}
 	}
 	else if (command[3].mouseOver) {
 		m_RayUpdate(620, 610);
+		if (Input::MouseL.clicked) {
+			SoundAsset(L"title").stop();
+			System::Exit();
+		}
 	}
 	else {
 		roop = true;
@@ -290,4 +305,25 @@ void Ranking::File_write() {
 		fprintf(file, "%d\n", h_score[i]);
 	}
 	fclose(file);
+}
+
+//--------------------------------------------
+
+void Tips::init() {
+
+}
+
+void Tips::update()
+{
+	if (Input::MouseL.clicked) {
+
+		changeScene(L"Title");
+	}
+}
+
+void Tips::draw() const
+{
+	Window::ClientRect().draw(Palette::Blue);
+	font(L"Tips").drawCenter(Window::Center());
+
 }

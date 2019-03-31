@@ -62,3 +62,14 @@ public:
 	void draw() const override;
 	Font font{ 50 };
 };
+
+
+class Tips : public SceneManager<String>::Scene
+{
+private:
+public:
+	void init() override;
+	void update() override;
+	void draw() const override;
+	Font font{ 50 };
+};
